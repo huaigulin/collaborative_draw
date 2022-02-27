@@ -6,3 +6,25 @@ canvas {
   display: block;
   user-select: none;
 }
+
+/* #color-picker {
+  position: absolute;
+  left: 20px;
+  top: 300px;
+  appearance: none;
+  background-color: transparent;
+  width: 100px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+} */
+
+#color-picker::-webkit-color-swatch {
+  border-radius: 8px;
+  border: 1px solid #b2b2b2;
+}
+
+#color-picker::-moz-color-swatch {
+  border-radius: 8px;
+  border: 1px solid #b2b2b2;
+}
