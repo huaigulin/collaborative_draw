@@ -118,14 +118,10 @@ function draw() {
   if (drawStrokeWidthPanel) {
     // draw the stroke width indicator on the canvas
     push();
-    rectMode(CENTER);
-    rect(width / 2 - 8, height / 2 - 16, 240, 164, 8);
-    textAlign(CENTER);
-    textSize(32);
-    text("Stroke Width: ", width / 2, height / 2 - 56);
+    circle(144, 80, 116);
     noStroke();
     fill(colorPicker.color());
-    circle(width / 2, height / 2, slider.value() + 2);
+    circle(144, 80, slider.value() + 2);
     pop();
   }
 }
