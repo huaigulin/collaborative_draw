@@ -1,5 +1,4 @@
 let shared;
-let thisPlayerId = makeid(7);
 let colorPicker;
 let slider;
 let span3;
@@ -66,10 +65,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   // clear shared object on first user entry
   if (partyIsHost()) {
-    partySetShared(shared, {});
+    partySetShared(shared, { drawData: [] });
   }
-  // init the player data
-  shared[thisPlayerId] = [];
   // create brushes & settings dock
   createDock();
 }
@@ -79,21 +76,19 @@ function draw() {
 
   if (mouseIsPressed) {
     if (mouseX > 82 || mouseY > 402) {
+      // hide the stroke width indicator
       drawStrokeWidthPanel = false;
-      // draw on the canvas
-      shared[thisPlayerId] = [
-        ...shared[thisPlayerId],
-        {
-          mouseX,
-          mouseY,
-          pmouseX,
-          pmouseY,
-          r: colorPicker.color().levels[0],
-          g: colorPicker.color().levels[1],
-          b: colorPicker.color().levels[2],
-          strokeWidth: slider.value(),
-        },
-      ];
+      // add draw data to shared obj
+      shared.drawData.push({
+        mouseX,
+        mouseY,
+        pmouseX,
+        pmouseY,
+        r: colorPicker.color().levels[0],
+        g: colorPicker.color().levels[1],
+        b: colorPicker.color().levels[2],
+        strokeWidth: slider.value(),
+      });
     } else if (
       mouseX > 20 &&
       mouseX < 56 &&
@@ -105,15 +100,14 @@ function draw() {
     }
   }
 
-  for (const p in shared) {
-    shared[p].forEach((l) => {
-      push();
-      strokeWeight(l.strokeWidth);
-      stroke(color(l.r, l.g, l.b));
-      line(l.mouseX, l.mouseY, l.pmouseX, l.pmouseY);
-      pop();
-    });
-  }
+  // use shared data to draw on canvas
+  shared.drawData.forEach((l) => {
+    push();
+    strokeWeight(l.strokeWidth);
+    stroke(color(l.r, l.g, l.b));
+    line(l.mouseX, l.mouseY, l.pmouseX, l.pmouseY);
+    pop();
+  });
 
   if (drawStrokeWidthPanel) {
     // draw the stroke width indicator on the canvas
@@ -124,15 +118,4 @@ function draw() {
     circle(144, 80, slider.value() + 2);
     pop();
   }
-}
-
-function makeid(length) {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
 }
