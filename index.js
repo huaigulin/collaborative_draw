@@ -50,12 +50,12 @@ function createDock() {
   // -- remove default background color & border
   colorPicker.style("background-color", "transparent");
   colorPicker.style("border", "none");
-  // -- dynamically update width & height
-  colorPicker.style("width", `${slider.value() * 10}px`);
-  colorPicker.style("height", `${slider.value() * 10}px`);
+  // -- set width & height
+  colorPicker.style("width", "50px");
+  colorPicker.style("height", "50px");
   // -- change cursor to pointer
   colorPicker.style("cursor", "pointer");
-  // -- use css to give the color content a circle look
+  // -- use css to give the color content a rounded look
   colorPicker.id("color-picker");
   // add as child to div
   div.child(colorPicker);
