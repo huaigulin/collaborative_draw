@@ -15,7 +15,7 @@ function createDock() {
   let div = createDiv();
   // style it
   div.style("width", "80px");
-  div.style("height", "400px");
+  div.style("height", "440px");
   div.style("background-color", "#FFFFFF");
   div.style("border-radius", "0 8px 8px 0");
   div.style(
@@ -59,6 +59,26 @@ function createDock() {
   colorPicker.id("color-picker");
   // add as child to div
   div.child(colorPicker);
+
+  // add anchor element for download
+  let anchor = createA("", "");
+  anchor.attribute("download", "our_drawing.png");
+  // add button
+  let exportButton = createButton("");
+  // set its position
+  exportButton.position(16, 376);
+  // use css to change button look
+  exportButton.id("export-button");
+  // add as child to div
+  anchor.child(exportButton);
+  // add click event listener
+  exportButton.mouseClicked(() => {
+    // get p5 canvas element
+    const url = document
+      .getElementsByClassName("p5Canvas")[0]
+      .toDataURL("image/png");
+    anchor.attribute("href", url);
+  });
 }
 
 function setup() {
