@@ -95,7 +95,7 @@ function draw() {
   background(220);
 
   if (mouseIsPressed) {
-    if (mouseX > 82 || mouseY > 402) {
+    if (mouseX > 80 || mouseY > 440) {
       // hide the stroke width indicator
       drawStrokeWidthPanel = false;
       // add draw data to shared obj
@@ -117,6 +117,14 @@ function draw() {
     ) {
       // mouse click on the slider
       drawStrokeWidthPanel = true;
+    }
+  } else {
+    if (mouseX > 80 || mouseY > 440) {
+      // draw cursor circle
+      push();
+      noFill();
+      circle(mouseX, mouseY, slider.value() + 2);
+      pop();
     }
   }
 
