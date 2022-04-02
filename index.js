@@ -94,6 +94,15 @@ function setup() {
 function draw() {
   background(220);
 
+  // use shared data to draw on canvas
+  shared.drawData.forEach((l) => {
+    push();
+    strokeWeight(l.strokeWidth);
+    stroke(color(l.r, l.g, l.b));
+    line(l.mouseX, l.mouseY, l.pmouseX, l.pmouseY);
+    pop();
+  });
+
   if (mouseIsPressed) {
     if (mouseX > 80 || mouseY > 440) {
       // hide the stroke width indicator
@@ -128,18 +137,10 @@ function draw() {
     }
   }
 
-  // use shared data to draw on canvas
-  shared.drawData.forEach((l) => {
-    push();
-    strokeWeight(l.strokeWidth);
-    stroke(color(l.r, l.g, l.b));
-    line(l.mouseX, l.mouseY, l.pmouseX, l.pmouseY);
-    pop();
-  });
-
   if (drawStrokeWidthPanel) {
     // draw the stroke width indicator on the canvas
     push();
+    fill(220);
     circle(144, 80, 116);
     noStroke();
     fill(colorPicker.color());
